@@ -51,7 +51,8 @@ Compared to the original ML model, MDeep achieves better performance on all data
 [1] Bukavina, L., et al. "Global Meta-analysis of Urine Microbiome: Colonization of Polycyclic Aromatic Hydrocarbon–degrading Bacteria Among Bladder Cancer Patients"
 
 [2] MDeep GitHub Repository: [https://github.com/lichen-lab/MDeep/tree/master]
-&emsp;&emsp; MDeep Paper: Wang et al. "A novel deep learning method for predictive modeling of microbiome data"
+
+MDeep Paper: Wang et al. "A novel deep learning method for predictive modeling of microbiome data"
 
 [3] Zeng et al. "Alterations in Urobiome in Patients With Bladder Cancer and Implications for Clinical Outcome: A Single-Institution Study"
 
