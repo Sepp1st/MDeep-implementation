@@ -13,12 +13,12 @@ def main(args):
 
     if training:
         file = args.data_dir
-        C = np.load('./' + file + '/c.npy')
+        C = np.load(file + '/c.npy')
         print("Hierarchical clustering")
         hac_index = HAC.hac(C)
         print("Start training")
-        x_train = np.load('./' + file + '/X_train.npy')
-        y_train = np.load('./' + file + '/Y_train.npy')
+        x_train = np.load(file + '/X_train.npy')
+        y_train = np.load(file + '/Y_train.npy')
 
         y_tr = []
         for l in y_train:
@@ -34,12 +34,12 @@ def main(args):
 
     if evaluation:
         file = args.data_dir
-        C = np.load('./' + file + '/c.npy')
+        C = np.load(file + '/c.npy')
         print("Hierarchical clustering")
         hac_index = HAC.hac(C)
         print("Start evaluation")
-        x_test = np.load('./' + file + '/X_eval.npy')
-        y_test = np.load('./' + file + '/Y_eval.npy')
+        x_test = np.load(file + '/X_eval.npy')
+        y_test = np.load(file + '/Y_eval.npy')
         x_test = x_test[:, hac_index]
         y_te = []
         for l in y_test:
