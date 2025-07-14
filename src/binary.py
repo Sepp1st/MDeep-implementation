@@ -13,7 +13,10 @@ def train(x_train, y_train, args):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"Using device: {device}")
 
-    x_train_tensor = torch.from_numpy(x_train).float().unsqueeze(1)  # Add channel dimension since PyTorch Conv1D expects (batch, channels, length)
+    x_train_cleaned = np.nan_to_num(x_train, nan=0.0, posinf=0.0, neginf=0.0)
+    x_train_final = x_train_cleaned.astype(np.float32)
+    x_train_tensor = torch.from_numpy(x_train_final).unsqueeze(1)  # Add channel dimension (1 channel for Conv1D)
+
     # PyTorch CrossEntropyLoss expects class indices, NOT one-hot vectors.
     y_train_tensor = torch.from_numpy(y_train.argmax(axis=1)).long()
 
@@ -25,6 +28,12 @@ def train(x_train, y_train, args):
     model = NetworkBinary(args, num_features).to(device)
     optimizer = optim.Adam(model.parameters(), lr=args.learning_rate)
     criterion = nn.CrossEntropyLoss()
+
+    variances = np.var(x_train, axis=0)
+    zero_variance_features = np.where(variances == 0)[0]
+    if len(zero_variance_features) > 0:
+        print(f"WARNING: Found {len(zero_variance_features)} features with zero variance!")
+        print("Feature indices:", zero_variance_features)
 
     # 3. Training loop
     for epoch in range(args.max_epoch):
