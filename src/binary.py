@@ -56,7 +56,7 @@ def train(x_train, y_train, args):
             break
 
     # 4. Save model
-    save_path = f"./{args.model_dir}/{args.data_dir.split('/')[-1]}/model.pth"
+    save_path = f"{args.model_dir}/{args.data_dir.split('/')[-1]}/model.pth"
     torch.save(model.state_dict(), save_path)
     print(f"Model saved in path: {save_path}")
 
@@ -71,7 +71,7 @@ def eval(x_test, y_test, args):
     # Load model
     num_features = x_test.shape[1]  # Number of features in the input data
     model = NetworkBinary(args, num_features).to(device)
-    model.load_state_dict(torch.load(f"./{args.model_dir}/{args.data_dir}/model.pth"))
+    model.load_state_dict(torch.load(f"{args.model_dir}/{args.data_dir}/model.pth"))
     model.eval()  # Set to evaluation mode
 
     y_pred_probs = []
