@@ -56,7 +56,7 @@ def train(x_train, y_train, args):
             break
 
     # 4. Save model
-    save_path = f"./{args.model_dir}/{args.data_dir.split('/')[1]}/model.pth"
+    save_path = f"./{args.model_dir}/{args.data_dir.split('/')[-1]}/model.pth"
     torch.save(model.state_dict(), save_path)
     print(f"Model saved in path: {save_path}")
 
