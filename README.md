@@ -32,7 +32,7 @@ MDeep is a deep learning framework for microbiome-based binary classification. I
 - **Fully Connected Layers:** \(2 layers in this example\)  
 - **Output:** Binary classification \(e.g., disease vs. control\)
 
-<img src="docs/architecture.jpg" alt="MDeep Architecture"></img>
+<img src="docs/Architecture.jpg" alt="MDeep Architecture"></img>
 **Figure. Schematic of the MDeep model architecture. Convolutional layers operate along the phylogenetic tree, followed by fully connected layers.**
 
 
