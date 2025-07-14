@@ -21,7 +21,8 @@ def train(x_train, y_train, args):
     train_loader = DataLoader(train_dataset, batch_size=args.batch_size, shuffle=True)
 
     # 2. Initialize model, optimizer, loss
-    model = NetworkBinary(args).to(device)
+    num_features = x_train.shape[1]  # Number of features in the input data
+    model = NetworkBinary(args, num_features).to(device)
     optimizer = optim.Adam(model.parameters(), lr=args.learning_rate)
     criterion = nn.CrossEntropyLoss()
 
@@ -55,7 +56,7 @@ def train(x_train, y_train, args):
             break
 
     # 4. Save model
-    save_path = f"./{args.model_dir}/model_binary.pth"
+    save_path = f"./{args.model_dir}/model.pth"
     torch.save(model.state_dict(), save_path)
     print(f"Model saved in path: {save_path}")
 
@@ -68,8 +69,9 @@ def eval(x_test, y_test, args):
     y_true_indices = y_test.argmax(axis=1)  # For sklearn metrics
 
     # Load model
-    model = NetworkBinary(args).to(device)
-    model.load_state_dict(torch.load(f"./{args.model_dir}/model_binary.pth"))
+    num_features = x_test.shape[1]  # Number of features in the input data
+    model = NetworkBinary(args, num_features).to(device)
+    model.load_state_dict(torch.load(f"./{args.model_dir}/model.pth"))
     model.eval()  # Set to evaluation mode
 
     y_pred_probs = []

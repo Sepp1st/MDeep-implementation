@@ -101,11 +101,13 @@ def parse_arguments(parser):
     parser.add_argument('--window_size', nargs='+' ,type=int, default=[8,8,8],
                         help='The window size for convolutional layers')
 
-    parser.add_argument('--kernel_size', nargs='+' ,type=int, default=[64, 64, 32],
-                        help='The kernel size for convolutional layers')
+    parser.add_argument('--filter_num', nargs='+' ,type=int, default=[64, 64, 32],
+                        help='The number of filters for convolutional layers')
 
     parser.add_argument('--strides',nargs='+' ,type=int, default=[4, 4, 4],
                         help='The strides size for convolutional layers')
+    parser.add_argument('--forward_size' ,type=int, default=12,
+                        help='The forward size for convolutional layers')
 
     args = parser.parse_args()
 
