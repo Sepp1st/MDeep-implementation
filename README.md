@@ -77,11 +77,11 @@ Below are example ROC curves and AUC scores for different datasets:
 
 <img src="results/3_countries/result.jpg" alt="All 3 countries" width="48%"/> <img src="results/China_Hung/result.jpg" alt="China and Hungary" width="48%"/> 
 
-<p align="center">Figure 1. All 3 countries &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Figure 2. China and Hungary</p>
+<p align="center">Figure 1. All 3 countries &emsp;&emsp;Figure 2. China and Hungary</p>
 
 <img src="results/Croatia_Hung/result.jpg" alt="Croatia and Hungary" width="48%"/> <img src="results/original/result.jpeg" alt="Original ML model performance" width="48%"></img></p>
 
-<p align="center">Figure 3. Croatia and Hungary &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Figure 4. Original ML model performance </p>
+<p align="center">Figure 3. Croatia and Hungary &emsp;&emsp;Figure 4. Original ML model performance </p>
 
 Compared to the original ML model, MDeep achieves better performance on all datasets (0.76 to 0.577, 0.88 to 0.619, 1.0 to 0.757), demonstrating the effectiveness of deep learning in microbiome-based classification tasks and MDeep's superior ability to leverage hierarchical microbial structures to capture both local and global patterns in the data.
 
