@@ -1,0 +1,23 @@
+MDeep Final Assembly Report
+============================================================
+
+Input files:
+  X: Test-data/Mai/after_D_processed/mai_X_preprocessed.npy
+  c: Test-data/Mai/after_D_processed/mai_c.npy
+
+Output directory: data/Mai
+
+Matrix dimensions:
+  X (abundance): 24 samples × 52 OTUs
+  c (correlation): 52 × 52 OTUs
+  Y (labels): 24 samples
+
+Label distribution:
+  Label 1: 24 samples
+
+X statistics:
+  dtype: float32
+  min: 0.000000
+  max: 259.976562
+  mean: 7.728320
+  sparsity: 20.83%
