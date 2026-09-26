@@ -4,8 +4,9 @@ from scipy.cluster.hierarchy import dendrogram, linkage
 def hac(cor):
 
     def mydist(p1, p2):
-        x = int(p1)
-        y = int(p2)
+        # scipy may pass 1-element arrays, so coerce robustly to scalar indices
+        x = int(np.ravel(p1)[0])
+        y = int(np.ravel(p2)[0])
         return 1.0 - cor[x, y]
 
     x = list(range(cor.shape[0]))

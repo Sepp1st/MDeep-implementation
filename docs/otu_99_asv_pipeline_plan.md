@@ -1,0 +1,94 @@
+# OTU-99 and DADA2-ASV routes with guarded 97% reuse
+
+## Summary
+
+
+Build `otu_99` and DADA2-based `asv` routes for `3_countries`,
+`China_Hung`, and `Croatia_Hung`. Keep OTU-97 unchanged. Reuse prior
+artifacts only after an explicit compatibility check, because reuse can alter
+scientific results.
+
+## Reuse policy
+
+- Treat all 97%-pipeline artifacts as untrusted candidates, not automatic
+  inputs.
+- Before reusing any artifact, verify and record:
+  - It is upstream of representation creation.
+  - Its sample IDs, source cohorts, raw-input checksums, QIIME version, and
+    relevant parameters exactly match the target route.
+  - Its QIIME UUID/provenance chain is complete.
+  - Its feature table and representative sequences are internally aligned.
+- Reject reuse and recompute from raw reads on any mismatch, missing
+  provenance, incompatible QIIME artifact, or uncertain lineage.
+- The current `data/intermediate/qiime_dereplication/derep-sequences.qza` and
+  `derep-table.qza` are candidates only for OTU-99 `3_countries`; confirm all
+  checks before using them.
+- Never reuse OTU-97 clustered features, chimera-filtered features, taxonomy,
+  trees, correlation matrices, feature mappings, preprocessed matrices, or
+  train/evaluation splits for either new representation.
+- Rebuild all ASV inputs from unmerged, quality-bearing paired-end reads;
+  DADA2 cannot safely use the joined/q-score-filtered/dereplicated OTU-97
+  artifacts.
+
+## Implementation changes
+
+- Add a parameterized pipeline and configuration for representation, cohort
+  route, source labels, QIIME/classifier versions, DADA2 trim/truncation
+  settings, and a reuse registry.
+- Implement `otu_99` from verified or rebuilt dereplication artifacts,
+  followed by 99% de-novo clustering and chimera removal.
+- Implement `asv` with `qiime dada2 denoise-paired` per country; do not
+  pre-join, separately q-score-filter, cluster, or independently
+  chimera-filter reads. Merge denoised ASV tables and representative sequences
+  by route.
+- Run shared MDeep preprocessing, final feature filtering, taxonomy,
+  phylogenetic tree generation, correlation calculation, HAC ordering, and
+  deterministic stratified 80/20 splitting with seed `42`.
+- Write outputs to:
+  - `data/final_otu_99_preprocessed/{3_countries,China_Hung,Croatia_Hung}/`
+  - `data/final_asv_preprocessed/{3_countries,China_Hung,Croatia_Hung}/`
+- Record every reuse decision, validation outcome, artifact checksum, UUID,
+  and recomputation fallback in the route provenance.
+
+## Validation
+
+- Fail the pipeline before processing if a requested reusable artifact does not
+  pass the reuse checks.
+- Verify feature/table/tree/correlation alignment, output dimensions, labels,
+  finite non-zero values, symmetric correlation matrices, deterministic splits,
+  and unchanged OTU-97 contents.
+- Add fixture smoke tests for both branches, including rejected-reuse
+  scenarios, then perform full-data runs with resumable intermediates.
+
+## Implemented entry points
+
+- Generate the source quality visualizations before setting DADA2 parameters:
+  `python src/feature_routes.py --representation asv --route 3_countries --stage quality-report`.
+- After reviewing each QIIME visualization and filling in every source's DADA2
+  trim/truncation values in `config/feature_routes.json`, run a route with:
+  `python src/feature_routes.py --representation asv --route 3_countries --resume`.
+- Run OTU-99 with:
+  `python src/feature_routes.py --representation otu_99 --route 3_countries --resume`.
+- Add `--dry-run` to inspect commands without creating artifacts. Full runs
+  require a QIIME executable, the configured classifier artifact, `biom-format`,
+  `scikit-bio`, and R with the `GUniFrac` package.
+
+## Current readiness gates
+
+- The runner refuses to silently drop incomplete pairs. The missing China mates
+  have been restored to `BC51` and `BC52`, and all China, Croatia, and Hungary
+  sample directories now pass the paired-read preflight. Re-run that preflight
+  after any future raw-data change.
+- The ASV branch is deliberately blocked until each source's DADA2 parameters
+  are chosen from its generated quality visualization and entered in
+  `config/feature_routes.json`.
+- The configured classifier (`data/silva-99-nb-classifier.qza`) and a host
+  `qiime` executable are not currently present in this workspace; the runner
+  checks both before a non-dry full run.
+
+## Assumptions
+
+- DADA2 is the ASV method: it denoises, dereplicates, joins paired reads, and
+  filters chimeras; ASVs remain unclustered. See the [QIIME 2 DADA2
+  documentation](https://docs.qiime2.org/2024.10/plugins/available/dada2/denoise-paired/).
+- Mai, Wu, and OTU-97 rebuild work remain out of scope.

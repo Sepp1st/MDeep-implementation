@@ -1,0 +1,21 @@
+rank    name    confidence
+1   g__Nosocomiicoccus;s__	0.996481626842747
+2   g__Christensenellaceae_R-7_group;s__	0.7825919283728637
+3   g__Anaerococcus;s__	0.9999998619614086
+4   g__Escherichia-Shigella;s__	0.9083432069252664
+5   g__Peptoniphilus;s__	0.9975608861496178
+6   g__Romboutsia;s__	0.9381690887643712
+7   d__Bacteria;p__Proteobacteria;c__Alphaproteobacteria;o__Rickettsiales;f__Mitochondria;g__Mitochondria;s__	0.8515733960578088
+8   d__Bacteria;p__Actinobacteriota;c__Actinobacteria;o__Corynebacteriales;f__Corynebacteriaceae	0.9999980852540092
+9   d__Bacteria;p__Proteobacteria;c__Gammaproteobacteria;o__Burkholderiales;f__Comamonadaceae	0.9999924967245132
+10  d__Bacteria;p__Firmicutes;c__Clostridia;o__Peptostreptococcales-Tissierellales;f__Family_XI;g__Peptoniphilus;s__	0.9982943401264192
+11  d__Bacteria;p__Firmicutes;c__Negativicutes;o__Veillonellales-Selenomonadales;f__Veillonellaceae;g__Veillonella;s__	0.999187599024385
+12  d__Bacteria;p__Actinobacteriota;c__Actinobacteria;o__Micrococcales;f__Brevibacteriaceae;g__Brevibacterium;s__	0.944587629304961
+13  d__Bacteria;p__Firmicutes;c__Clostridia;o__Peptostreptococcales-Tissierellales;f__Family_XI;g__W5053;s__	0.9510927632881104
+14  93f2cec4cb8f5d23088447dc5c8cfed3240c89f5	d__Bacteria	0.9977226892218428
+15  d__Bacteria;p__Actinobacteriota;c__Actinobacteria;o__Corynebacteriales;f__Corynebacteriaceae;g__Corynebacterium;s__	0.9768411376064652
+16  d__Bacteria;p__Firmicutes;c__Clostridia;o__Clostridia_UCG-014;f__Clostridia_UCG-014;g__Clostridia_UCG-014;s__	0.7051980106315348
+17  d__Bacteria;p__Bacteroidota;c__Bacteroidia;o__Bacteroidales;f__Porphyromonadaceae;g__Porphyromonas;s__	0.9933057908116985
+18  d__Bacteria;p__Actinobacteriota;c__Actinobacteria;o__Micrococcales;f__Micrococcaceae;g__Micrococcus;s__	0.9878504575182462
+19  d__Bacteria;p__Bacteroidota;c__Bacteroidia;o__Bacteroidales;f__Porphyromonadaceae;g__Porphyromonas;s__	0.9915595783960331
+20  d__Bacteria;p__Proteobacteria;c__Gammaproteobacteria;o__Pseudomonadales;f__Moraxellaceae;g__Acinetobacter;s__	0.9999604722521273

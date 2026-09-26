@@ -92,21 +92,38 @@ def eval(x_test, y_test, args):
         # Get probabilities for the positive class
         y_pred_probs = torch.softmax(outputs, dim=1)[:, 1].cpu().numpy()
 
-    # Calculate ROC and AUC
-    fpr, tpr, _ = metrics.roc_curve(y_true_indices, y_pred_probs)
-    auc = metrics.roc_auc_score(y_true_indices, y_pred_probs)
-    print(f"AUC Score: {auc}")
+    # Calculate Accuracy directly
+    # y_pred_probs > 0.5 means the model predicts Class 1 (Disease)
+    predictions = (y_pred_probs > 0.5).astype(int)
+    correct_predictions = (predictions == y_true_indices).sum()
+    total_samples = len(y_true_indices)
+    accuracy = (correct_predictions / total_samples) * 100
 
-    # Plotting (same as before)
-    plt.clf()
-    plt.plot(fpr, tpr, label=f'AUC = {auc:.2f}')
-    plt.plot([0, 1], [0, 1], 'r--')
-    plt.xlim([0.0, 1.0])
-    plt.ylim([0.0, 1.05])
-    plt.xlabel('1-Specificity(False Positive Rate)')
-    plt.ylabel('Sensitivity(True Positive Rate)')
-    plt.title('Receiver Operating Characteristic')
-    plt.legend(loc="lower right")
-    plt.tight_layout()
-    plt.savefig(f"/kaggle/working/{args.result_dir}/result.jpg")
-    plt.show()
+    print(f"\n--- Evaluation Results ---")
+    print(f"Total Samples: {total_samples}")
+    print(f"Correctly Predicted as Disease: {correct_predictions}")
+    print(f"Accuracy: {accuracy:.2f}%\n")
+
+    # Safely try to calculate AUC (will skip if only 1 class exists)
+    try:
+        fpr, tpr, _ = metrics.roc_curve(y_true_indices, y_pred_probs)
+        auc = metrics.roc_auc_score(y_true_indices, y_pred_probs)
+        print(f"AUC Score: {auc}")
+        
+        # Plotting
+        plt.clf()
+        plt.plot(fpr, tpr, label=f'AUC = {auc:.2f}')
+        plt.plot([0, 1], [0, 1], 'r--')
+        plt.xlim([0.0, 1.0])
+        plt.ylim([0.0, 1.05])
+        plt.xlabel('1-Specificity(False Positive Rate)')
+        plt.ylabel('Sensitivity(True Positive Rate)')
+        plt.title('Receiver Operating Characteristic')
+        plt.legend(loc="lower right")
+        plt.tight_layout()
+        plt.savefig(f"/kaggle/working/{args.result_dir}/result.jpg")
+        plt.show()
+    except ValueError as e:
+        print("Skipping ROC/AUC Plot: Dataset contains only one class.")
+        print("Raw predicted probabilities for Class 1:")
+        print(y_pred_probs)

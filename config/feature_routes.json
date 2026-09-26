@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "qiime": {
+    "executable": "qiime",
+    "expected_version": "2024.10.1",
+    "classifier": "data/silva-99-nb-classifier.qza",
+    "threads": 1
+  },
+  "paths": {
+    "raw_data": "data/raw_data",
+    "intermediate": "data/intermediate/feature_routes"
+  },
+  "processing": {
+    "prevalence_threshold": 0.1,
+    "median_nonzero_count": 10,
+    "winsor_quantile": 0.97,
+    "test_size": 0.2,
+    "random_seed": 42
+  },
+  "sources": {
+    "China": {
+      "directory": "China-raw-fastq-data/China",
+      "sample_prefix": "China_",
+      "label_prefixes": { "BC": 1, "CT": 0 },
+      "dada2": {
+        "trim_left_f": null,
+        "trim_left_r": null,
+        "trunc_len_f": null,
+        "trunc_len_r": null
+      }
+    },
+    "Croatia": {
+      "directory": "Croatia-raw-fastq-data",
+      "sample_prefix": "Croatia_",
+      "label_prefixes": { "BC": 1, "CT": 0 },
+      "dada2": {
+        "trim_left_f": null,
+        "trim_left_r": null,
+        "trunc_len_f": null,
+        "trunc_len_r": null
+      }
+    },
+    "Hungary": {
+      "directory": "Hungary-raw-fastq-data",
+      "sample_prefix": "Hungary_",
+      "label_prefixes": { "UI": 1, "UN": 1 },
+      "dada2": {
+        "trim_left_f": null,
+        "trim_left_r": null,
+        "trunc_len_f": null,
+        "trunc_len_r": null
+      }
+    }
+  },
+  "routes": {
+    "3_countries": ["China", "Croatia", "Hungary"],
+    "China_Hung": ["China", "Hungary"],
+    "Croatia_Hung": ["Croatia", "Hungary"]
+  },
+  "reuse_candidates": {
+    "otu_99": {
+      "3_countries": {
+        "table": "data/intermediate/qiime_dereplication/derep-table.qza",
+        "sequences": "data/intermediate/qiime_dereplication/derep-sequences.qza",
+        "raw_checksums": null,
+        "expected_qiime_version": "2024.10.1"
+      }
+    }
+  }
+}

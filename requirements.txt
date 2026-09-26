@@ -4,3 +4,6 @@ torch~=2.7.1
 matplotlib~=3.10.1
 scikit-learn~=1.6.1
 pandas~=2.2.3
+biom-format~=2.1.16
+scikit-bio~=0.6.3
+rpy2~=3.5.17
